@@ -7,5 +7,5 @@ streak = Blueprint("streak", __name__)
 def main():
 	'''Streak endpoint, used to know how many day streaks user has'''
 	username = request.args.get("username")
-	data = StreakHandler(username)
+	data = StreakHandler(username).get_streaks()
 	return data
