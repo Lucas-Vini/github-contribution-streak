@@ -11,3 +11,6 @@ class StreakHandler():
         if not isinstance(self.username, str):
             self.message = "Username must be string"
             return False
+        if len(self.username) > 39:
+            self.message = "Username must have at most 39 characters"
+            return False
