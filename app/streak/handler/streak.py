@@ -14,3 +14,6 @@ class StreakHandler():
         if len(self.username) > 39:
             self.message = "Username must have at most 39 characters"
             return False
+        if any(not char.isalnum() and char not in ['-', '_'] for char in self.username):
+            self.message = "Username with invalid character"
+            return False
