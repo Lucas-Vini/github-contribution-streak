@@ -10,6 +10,6 @@ class GithubClient(GithubConfig):
         }
 
     def get_user_contributions(self, username):
-        data = user_contributions_query(username)
-        response = requests.post(url=self.github_url, data=data, headers=self.headers)
+        query_json = {"query": user_contributions_query(username)}
+        response = requests.post(url=self.github_url, json=query_json, headers=self.headers)
         return response.json(), response.status_code
