@@ -10,7 +10,8 @@ class StreakHandler():
             return {"error": self.message}, 422
         
         gh_client = GithubClient()
-        return gh_client.get_user_contributions(self.username), 200
+        user_contributions =  gh_client.get_user_contributions(self.username)
+        return user_contributions
 
         
     def _is_valid_username(self):
