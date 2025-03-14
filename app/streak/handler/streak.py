@@ -11,7 +11,8 @@ class StreakHandler():
         
         gh_client = GithubClient()
         user_contributions =  gh_client.get_user_contributions(self.username)
-        return user_contributions
+        streak_days = self._get_streak_days_from_user_contributions(user_contributions)
+        return streak_days
 
         
     def _is_valid_username(self):
@@ -25,3 +26,6 @@ class StreakHandler():
             self.message = "Username with invalid character"
             return False
         return True
+    
+    def _get_streak_days_from_user_contributions():
+        pass
