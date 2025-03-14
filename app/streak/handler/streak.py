@@ -27,5 +27,8 @@ class StreakHandler():
             return False
         return True
     
-    def _get_streak_days_from_user_contributions():
-        pass
+    def _get_streak_days_from_user_contributions(self, user_contributions: dict) -> int:
+         weeks = user_contributions["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
+         for weak in weeks:
+             pass
+         return user_contributions
