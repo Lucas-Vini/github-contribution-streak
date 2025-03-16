@@ -6,7 +6,7 @@ def user_contributions_query(username):
                 contributionCalendar {{
                     weeks {{
                         contributionDays {{
-                            date
+                            date, contributionCount
                         }}
                     }}
                 }}
