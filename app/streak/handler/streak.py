@@ -1,4 +1,5 @@
 from app.streak.services.github.github_client import GithubClient
+from datetime import datetime, timedelta
 
 class StreakHandler():
     def __init__(self, username: str) -> dict: 
@@ -12,7 +13,7 @@ class StreakHandler():
         gh_client = GithubClient()
         user_contributions =  gh_client.get_user_contributions(self.username)
         streak_days = self._get_streak_days_from_user_contributions(user_contributions)
-        return streak_days
+        return {"streak_days": streak_days}
 
         
     def _is_valid_username(self):
@@ -28,8 +29,17 @@ class StreakHandler():
         return True
     
     def _get_streak_days_from_user_contributions(self, user_contributions: dict) -> int:
-         weeks = user_contributions["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
-         for weak in weeks:
-             for contribution in weak['contributionDays']:
-                 print(contribution["date"])
-         return user_contributions
+        weeks = user_contributions["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
+        date_of_first_contribution_available = weeks[0]['contributionDays'][0]['date']
+        initial_streak_date = datetime.strptime(date_of_first_contribution_available, '%Y-%m-%d')
+        streak_days = 0
+        for weak in weeks:
+            for contribution in weak['contributionDays']:
+                date = datetime.strptime(contribution["date"], '%Y-%m-%d')
+                diff = datetime.today() - date
+                if contribution["contributionCount"] > 0:
+                    streak_days += 1
+                elif diff.days > 0:
+                    streak_days = 0
+            
+        return streak_days
